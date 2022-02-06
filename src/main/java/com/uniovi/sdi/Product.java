@@ -5,6 +5,8 @@ public class Product {
     private String image;
     private float price;
 
+    public Product() {} //Constructor vacío para que la clase pueda ser utilizada como un Bean
+
     public Product (String name, String image, float price){
         this.name = name;
         this.image = image;

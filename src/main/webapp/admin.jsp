@@ -20,24 +20,22 @@
         response.sendRedirect("login.jsp");
     }
 %>
+
+<!-- Crea un Bean nuevo de tipo Product, con el nombre de la varibale "product"-->
+<jsp:useBean id="product" class="com.uniovi.sdi.Product"/>
+<jsp:setProperty name="product" property="*"/>
+<!--Con la etiqueta setProperty (property=*) se analizan todos los parametros de la peticion y los guarda en las propiedades del Bean (las que tengan el mismo nombre)-->
 <%
-    if (request.getParameter("name") != null &&
-        request.getParameter("image") != null &&
-        request.getParameter("price") != null) {
-
-        String name = (String) request.getParameter("name");
-        String image = (String) request.getParameter("image");
-        float price = Float.parseFloat(request.getParameter("price"));
-
-        Product product = new Product(name, image, price);
+    if (product.getName() != null) {
         new ProductsService().setNewProduct(product);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 %>
+
 <!-- Contenido -->
 <div class="container" id="main-container">
 
-    <!--Formulario qye solicite el nombre, la imagen (URL) y el precio de un producto -->
+    <!--Formulario que solicita el nombre, la imagen (URL) y el precio de un producto -->
     <h2>Agregar producto a la tienda</h2>
     <form class="form-horizontal" method="post" action="admin.jsp">
         <div class="form-group">
@@ -65,12 +63,6 @@
         </div>
     </form>
 </div>
-
-<!-- Antes de dinamico
-<div class="container" id="contenedor-principal">
-    <h2>Administrar</h2>
-</div>
--->
 
 </body>
 </html>

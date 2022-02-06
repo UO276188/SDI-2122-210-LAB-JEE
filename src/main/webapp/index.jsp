@@ -12,6 +12,7 @@
 </head>
 
 <body>
+<%-- Cambiado por el Bean
 <%
     Integer counter = (Integer) application.getAttribute("counter");
     if (counter == null) {
@@ -19,6 +20,10 @@
     }
     application.setAttribute("counter", counter.intValue() + 1);
 %>
+--%>
+<jsp:useBean id="counter" class="com.uniovi.sdi.Counter" scope="application"/>
+<jsp:setProperty name="counter" property="increase" value="1"/>
+
 <!-- Barra de Navegación superior -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="collapse navbar-collapse" id="my-navbarColor02">
@@ -34,7 +39,9 @@
             </li>
         </ul>
         <div class="nav navbar-right">
-            <%=counter%> Visitas
+            <!-- cambiar por el bean -->
+            <%--<%=counter%> Visitas --%>
+            <jsp:getProperty name="counter" property="total"/> Visitas
         </div>
     </div>
 </nav>
@@ -42,7 +49,7 @@
 <!-- Contenido -->
 <div class="container" id="main-container">
     <h2>Productos</h2>
-    <!-- Antes de lsitar los productos dinámicamente
+    <!-- Antes de listar los productos dinámicamente
     <div class="row ">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
             <div>
@@ -90,8 +97,7 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
             <div>
                 <img src="<%=product.getImage() %>" />
-                <div>
-                    <%=product.getName() %></div>
+                <div><%=product.getName() %></div>
                 <a href="AddToShoppingCart?product=<%=product.getName() %>" class="btn btn-default" >
                     <%=product.getPrice() %> €
                 </a>
