@@ -21,10 +21,17 @@ public class ServletShoppingCart extends HttpServlet {
             cart = new HashMap<String, Integer>();
             request.getSession().setAttribute("cart", cart);
         }
+
         String product = request.getParameter("product");
         if (product != null) {
             addToShoppingCart(cart, product);
         }
+
+        //Retornar la vista con parámetro "selectedItems"
+        request.setAttribute("selectedItems", cart);
+        getServletContext().getRequestDispatcher("/cart.jsp").forward(request,response);
+
+        /* Eliminado al aplicar el patron MVC
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -35,6 +42,7 @@ public class ServletShoppingCart extends HttpServlet {
         //out.println("<a href=\"shop.html\">Volver</a></BODY></HTML>"); //version inicial
         //JSP
         out.println("<a href=\"index.jsp\">Volver</a></BODY></HTML>");
+        */
     }
 
     private void addToShoppingCart(Map<String, Integer> cart, String productKey){
